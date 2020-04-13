@@ -1,52 +1,49 @@
-const div = document.querySelector('#main');
-const city = document.createElement('div');
-const weather = document.createElement('div');
-const temp = document.createElement('div');
-const icon = document.createElement('img');
+const main = document.querySelector('#main');
+const city = document.querySelector('.location');
+const weather = document.querySelector('.weather-type');
+const temp = document.querySelector('.temperature');
+const humidity = document.querySelector('.humidity');
+const wind = document.querySelector('.wind');
+const loadWrap = document.createElement('div');
+const loader = document.createElement('div');
+loadWrap.classList.add('load-wrap');
+loader.classList.add('loader');
 
 const apiId = 'ef6615ba447292811b06a9a82b11ecd9';
-const location = 'Visoko,ba';
+const location = 'Zavidovici,ba';
 const unit = 'metric'
 
+loadWrap.appendChild(loader)
+main.appendChild(loadWrap);
 
 
 const getLocation = () => {
   let lat = '', lon = '';
-  var x = document.getElementById("main");
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(position => {
       lat = position.coords.latitude.toFixed(3);
       lon = position.coords.longitude.toFixed(3);
-      console.log('first',lat, lon);
       getData(lat, lon);
     });
-  } else {
-    x.innerHTML = "Geolocation is not supported by this browser.";
   }
-  console.log('second',lat, lon);
-  
 }
 
-async function getData(lat, lon) {
+async function getData() {
   try {
-    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${unit}&APPID=${apiId}`,
+    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=${unit}&APPID=${apiId}`,
       {mode: 'cors'});
     const weatherData = await response.json();
+    loadWrap.classList.add('d-none');
+    document.querySelector('.data-wrap').classList.remove('d-none');
     city.innerHTML = `${weatherData.city.name}, ${weatherData.city.country}`;
     weather.innerHTML = weatherData.list[0].weather[0].main;
-    temp.innerHTML = Math.round(weatherData.list[0].main.temp) + '°C';
-    const iconCode = weatherData.list[0].weather[0].icon;
-    icon.src = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;
-    div.appendChild(city);
-    div.appendChild(weather);
-    div.appendChild(temp);
-    div.appendChild(icon);
+    // temp.innerHTML = Math.round(weatherData.list[0].main.temp);
+    humidity.innerHTML = weatherData.list[0].main.humidity + '%';
+    wind.innerHTML = (weatherData.list[0].wind.speed * 3.6).toFixed(2) + ' km/h'
   } catch (err) {
-    // if (window.confirm('Location not found! Please fill out search field again.')) {
-    //   window.location.reload(true);
-    // }
+    
   }
   
 }
 
-// getLocation();
+getLocation();

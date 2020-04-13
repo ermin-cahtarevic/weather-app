@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("const div = document.querySelector('#main');\n\nasync function getData() {\n  const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Zenica,ba&units=metric&APPID=ef6615ba447292811b06a9a82b11ecd9',\n{mode: 'cors'});\n  const weatherData = await response.json();\n  div.innerHTML = weatherData.weather[0].main;\n  div.innerHTML += weatherData.main.temp + '°C'\n}\n\ngetData();\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("const div = document.querySelector('#main');\nconst city = document.createElement('div');\nconst weather = document.createElement('div');\nconst temp = document.createElement('div');\nconst icon = document.createElement('img');\n\nconst apiId = 'ef6615ba447292811b06a9a82b11ecd9';\nconst location = 'Sarajevo,ba';\nconst unit = 'metric'\n\nasync function getData() {\n  const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=${unit}&APPID=${apiId}`,\n{mode: 'cors'});\n  const weatherData = await response.json();\n  city.innerHTML = `${weatherData.city.name}, ${weatherData.city.country}`;\n  weather.innerHTML = weatherData.list[0].weather[0].main;\n  temp.innerHTML = Math.round(weatherData.list[0].main.temp) + '°C';\n  const iconCode = weatherData.list[0].weather[0].icon;\n  icon.src = `http://openweathermap.org/img/wn/${iconCode}@2x.png`;\n  div.appendChild(city);\n  div.appendChild(weather);\n  div.appendChild(temp);\n  div.appendChild(icon);\n}\n\ngetData();\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 

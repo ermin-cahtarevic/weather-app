@@ -3,10 +3,39 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <title>Document</title>
 </head>
 <body>
-  <div id="main"></div>
+  <div id="main">
+    <div class="search-wrap">
+      <button class="btn">Get my location</button>
+      <div class="search-form">
+        <input type="text" placeholder="City">
+        <button class="btn" id="search">Search</button>
+      </div>
+    </div>
+    <div class="data-wrap">
+      <div class="location">Zavidovici, BA</div>
+      <div class="temperature-wrap">
+        <span class="temperature">15</span>
+        <a href="#" class="unit-toggle">°C</a>
+        <div class="weather-type">Sunny</div>
+      </div>
+      <div class="misc-wrap">
+        <div class="humidity-wrap">
+          <i class="fa fa-tint"></i>
+          <span class="humidity">54%</span> <br>
+          <span>Humidity</span>
+        </div>
+        <div class="wind-wrap">
+          <i class="fa fa-angle-double-right"></i>
+          <span class="wind">2.45 km/h</span> <br>
+          <span>Wind</span>
+        </div>
+      </div>  
+    </div>
+  </div>
   <script src="main.js"></script>
 </body>
 </html>

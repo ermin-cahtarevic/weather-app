@@ -93,7 +93,7 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-eval("\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("const div = document.querySelector('#main');\n\nasync function getData() {\n  const response = await fetch('https://api.openweathermap.org/data/2.5/weather?q=Zenica,ba&units=metric&APPID=ef6615ba447292811b06a9a82b11ecd9',\n{mode: 'cors'});\n  const weatherData = await response.json();\n  div.innerHTML = weatherData.weather[0].main;\n  div.innerHTML += weatherData.main.temp + '°C'\n}\n\ngetData();\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ })
 

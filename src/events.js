@@ -26,6 +26,9 @@ searchBtn.onclick = () => {
           unit,
         );
         return false;
+      })
+      .catch(err => {
+        error(err);
       });
   } else {
     error('Please fill out the search field!');
@@ -53,6 +56,9 @@ getLocation.onclick = () => {
             unit,
           );
           return false;
+        })
+        .catch(err => {
+          error(err);
         });
     });
   } else {
@@ -66,12 +72,18 @@ unitToggle.onclick = () => {
       .then(response => {
         render(response.city, response.temp, response.weather, response.humidity, response.wind, response.iconId, 'imperial');
         unit = 'imperial';
+      })
+      .catch(err => {
+        error(err);
       });
   } else if (unitToggle.innerHTML === '°F') {
     getSearchData(location, 'metric')
       .then(response => {
         render(response.city, response.temp, response.weather, response.humidity, response.wind, response.iconId, 'metric');
         unit = 'metric';
+      })
+      .catch(err => {
+        error(err);
       });
   }
 };

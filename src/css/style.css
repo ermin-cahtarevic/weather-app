@@ -135,9 +135,16 @@ body {
 .load-wrap {
   width: 100%;
   height: 300px;
+  color: white;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+.load-wrap p {
+  font-size: 18px;
+  margin-bottom: 50px;
 }
 
 .loader {

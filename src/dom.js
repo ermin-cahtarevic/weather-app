@@ -1,5 +1,5 @@
 import './events';
-import { clearForm } from './helpers';
+import { clearForm, getBackgroundImg } from './helpers';
 
 const main = document.querySelector('#main');
 const cityDisplay = document.querySelector('.location');
@@ -20,14 +20,16 @@ loadWrap.appendChild(p);
 loadWrap.appendChild(loader)
 main.appendChild(loadWrap);
 
-const render = (city, temp, weather, humidity, wind) => {
+const render = (city, temp, weather, humidity, wind, iconId) => {
   loadWrap.classList.add('d-none');
   document.querySelector('.data-wrap').classList.remove('d-none');
+  getBackgroundImg(iconId);
   cityDisplay.innerHTML = city;
   weatherDisplay.innerHTML = weather;
   tempDisplay.innerHTML = temp;
   humidityDisplay.innerHTML = humidity + '%';
-  windDisplay.innerHTML = wind + ' km/h'
+  windDisplay.innerHTML = wind + ' km/h';
+
   clearForm();
 }
 
@@ -37,6 +39,8 @@ const error = (errorText) => {
   setTimeout(() => errorDisplay.classList.remove('error-show'), 5000);
 }
 
-// getLocation();
+const checkForm = () => {
+  return document.querySelector('#search-input').value != '';
+}
 
-export { render, error };
+export { render, error, checkForm };

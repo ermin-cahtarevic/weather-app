@@ -12,7 +12,8 @@ const getSearchData = async (location, unit = 'metric') => {
       temp: Math.round(weatherData.list[0].main.temp),
       weather: weatherData.list[0].weather[0].main,
       humidity: weatherData.list[0].main.humidity,
-      wind: (weatherData.list[0].wind.speed * 3.6).toFixed(2)
+      wind: (weatherData.list[0].wind.speed * 3.6).toFixed(2),
+      iconId: weatherData.list[0].weather[0].icon
     }
   } catch (err) {
     error('City not found! Please check your spelling.');
@@ -29,7 +30,8 @@ const getLocationData = async (lat, lon, unit = 'metric') => {
       temp: Math.round(weatherData.list[0].main.temp),
       weather: weatherData.list[0].weather[0].main,
       humidity: weatherData.list[0].main.humidity,
-      wind: (weatherData.list[0].wind.speed * 3.6).toFixed(2)
+      wind: (weatherData.list[0].wind.speed * 3.6).toFixed(2),
+      iconId: weatherData.list[0].weather[0].icon
     }
   } catch (err) {
     error('Please check your input!')

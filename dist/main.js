@@ -129,7 +129,7 @@ eval("\n\nvar isOldIE = function isOldIE() {\n  var memo;\n  return function mem
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getSearchData\", function() { return getSearchData; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getLocationData\", function() { return getLocationData; });\n/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ \"./src/dom.js\");\n\n\nconst apiId = 'ef6615ba447292811b06a9a82b11ecd9';\n\nconst getSearchData = async (location, unit = 'metric') => {\n  try {\n    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=${unit}&APPID=${apiId}`,\n      {mode: 'cors'});\n    const weatherData = await response.json();\n    return {\n      city: `${weatherData.city.name}, ${weatherData.city.country}`, \n      temp: Math.round(weatherData.list[0].main.temp),\n      weather: weatherData.list[0].weather[0].main,\n      humidity: weatherData.list[0].main.humidity,\n      wind: (weatherData.list[0].wind.speed * 3.6).toFixed(2)\n    }\n  } catch (err) {\n    Object(_dom__WEBPACK_IMPORTED_MODULE_0__[\"error\"])('City not found! Please check your spelling.');\n  }\n}\n\nconst getLocationData = async (lat, lon, unit = 'metric') => {\n  try {\n    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${unit}&APPID=${apiId}`,\n      {mode: 'cors'});\n    const weatherData = await response.json();\n    return {\n      city: `${weatherData.city.name}, ${weatherData.city.country}`, \n      temp: Math.round(weatherData.list[0].main.temp),\n      weather: weatherData.list[0].weather[0].main,\n      humidity: weatherData.list[0].main.humidity,\n      wind: (weatherData.list[0].wind.speed * 3.6).toFixed(2)\n    }\n  } catch (err) {\n    Object(_dom__WEBPACK_IMPORTED_MODULE_0__[\"error\"])('Please check your input!')\n  }\n}\n\n\n\n//# sourceURL=webpack:///./src/api.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getSearchData\", function() { return getSearchData; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getLocationData\", function() { return getLocationData; });\n/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./dom */ \"./src/dom.js\");\n\n\nconst apiId = 'ef6615ba447292811b06a9a82b11ecd9';\n\nconst getSearchData = async (location, unit = 'metric') => {\n  try {\n    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=${unit}&APPID=${apiId}`,\n      {mode: 'cors'});\n    const weatherData = await response.json();\n    return {\n      city: `${weatherData.city.name}, ${weatherData.city.country}`, \n      temp: Math.round(weatherData.list[0].main.temp),\n      weather: weatherData.list[0].weather[0].main,\n      humidity: weatherData.list[0].main.humidity,\n      wind: (weatherData.list[0].wind.speed * 3.6).toFixed(2),\n      iconId: weatherData.list[0].weather[0].icon\n    }\n  } catch (err) {\n    Object(_dom__WEBPACK_IMPORTED_MODULE_0__[\"error\"])('City not found! Please check your spelling.');\n  }\n}\n\nconst getLocationData = async (lat, lon, unit = 'metric') => {\n  try {\n    const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${unit}&APPID=${apiId}`,\n      {mode: 'cors'});\n    const weatherData = await response.json();\n    return {\n      city: `${weatherData.city.name}, ${weatherData.city.country}`, \n      temp: Math.round(weatherData.list[0].main.temp),\n      weather: weatherData.list[0].weather[0].main,\n      humidity: weatherData.list[0].main.humidity,\n      wind: (weatherData.list[0].wind.speed * 3.6).toFixed(2),\n      iconId: weatherData.list[0].weather[0].icon\n    }\n  } catch (err) {\n    Object(_dom__WEBPACK_IMPORTED_MODULE_0__[\"error\"])('Please check your input!')\n  }\n}\n\n\n\n//# sourceURL=webpack:///./src/api.js?");
 
 /***/ }),
 
@@ -148,11 +148,11 @@ eval("var api = __webpack_require__(/*! ../../node_modules/style-loader/dist/run
 /*!********************!*\
   !*** ./src/dom.js ***!
   \********************/
-/*! exports provided: render, error */
+/*! exports provided: render, error, checkForm */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return render; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"error\", function() { return error; });\n/* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./events */ \"./src/events.js\");\n/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers */ \"./src/helpers.js\");\n\n\n\nconst main = document.querySelector('#main');\nconst cityDisplay = document.querySelector('.location');\nconst weatherDisplay = document.querySelector('.weather-type');\nconst tempDisplay = document.querySelector('.temperature');\nconst humidityDisplay = document.querySelector('.humidity');\nconst windDisplay = document.querySelector('.wind');\nconst errorDisplay = document.querySelector('#error');\n\nconst loadWrap = document.createElement('div');\nconst loader = document.createElement('div');\nconst p = document.createElement('p');\np.innerHTML = \"Please click the 'Get my location' button or search for a location.\";\nloadWrap.classList.add('load-wrap');\nloader.classList.add('loader');\n\nloadWrap.appendChild(p);\nloadWrap.appendChild(loader)\nmain.appendChild(loadWrap);\n\nconst render = (city, temp, weather, humidity, wind) => {\n  loadWrap.classList.add('d-none');\n  document.querySelector('.data-wrap').classList.remove('d-none');\n  cityDisplay.innerHTML = city;\n  weatherDisplay.innerHTML = weather;\n  tempDisplay.innerHTML = temp;\n  humidityDisplay.innerHTML = humidity + '%';\n  windDisplay.innerHTML = wind + ' km/h'\n  Object(_helpers__WEBPACK_IMPORTED_MODULE_1__[\"clearForm\"])();\n}\n\nconst error = (errorText) => {\n  errorDisplay.innerHTML = errorText;\n  errorDisplay.classList.add('error-show');\n  setTimeout(() => errorDisplay.classList.remove('error-show'), 5000);\n}\n\n// getLocation();\n\n\n\n//# sourceURL=webpack:///./src/dom.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"render\", function() { return render; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"error\", function() { return error; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"checkForm\", function() { return checkForm; });\n/* harmony import */ var _events__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./events */ \"./src/events.js\");\n/* harmony import */ var _helpers__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./helpers */ \"./src/helpers.js\");\n\n\n\nconst main = document.querySelector('#main');\nconst cityDisplay = document.querySelector('.location');\nconst weatherDisplay = document.querySelector('.weather-type');\nconst tempDisplay = document.querySelector('.temperature');\nconst humidityDisplay = document.querySelector('.humidity');\nconst windDisplay = document.querySelector('.wind');\nconst errorDisplay = document.querySelector('#error');\n\nconst loadWrap = document.createElement('div');\nconst loader = document.createElement('div');\nconst p = document.createElement('p');\np.innerHTML = \"Please click the 'Get my location' button or search for a location.\";\nloadWrap.classList.add('load-wrap');\nloader.classList.add('loader');\n\nloadWrap.appendChild(p);\nloadWrap.appendChild(loader)\nmain.appendChild(loadWrap);\n\nconst render = (city, temp, weather, humidity, wind, iconId) => {\n  loadWrap.classList.add('d-none');\n  document.querySelector('.data-wrap').classList.remove('d-none');\n  Object(_helpers__WEBPACK_IMPORTED_MODULE_1__[\"getBackgroundImg\"])(iconId);\n  cityDisplay.innerHTML = city;\n  weatherDisplay.innerHTML = weather;\n  tempDisplay.innerHTML = temp;\n  humidityDisplay.innerHTML = humidity + '%';\n  windDisplay.innerHTML = wind + ' km/h';\n\n  Object(_helpers__WEBPACK_IMPORTED_MODULE_1__[\"clearForm\"])();\n}\n\nconst error = (errorText) => {\n  errorDisplay.innerHTML = errorText;\n  errorDisplay.classList.add('error-show');\n  setTimeout(() => errorDisplay.classList.remove('error-show'), 5000);\n}\n\nconst checkForm = () => {\n  return document.querySelector('#search-input').value != '';\n}\n\n\n\n//# sourceURL=webpack:///./src/dom.js?");
 
 /***/ }),
 
@@ -164,7 +164,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) *
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api */ \"./src/api.js\");\n/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom */ \"./src/dom.js\");\n\n\n\nconst searchBtn = document.querySelector('#search');\nconst getLocation = document.querySelector('#get-location');\n\nsearchBtn.onclick = () => {\n  const location = document.querySelector('#search-input').value;\n  Object(_api__WEBPACK_IMPORTED_MODULE_0__[\"getSearchData\"])(location, 'metric')\n    .then(response => {\n      Object(_dom__WEBPACK_IMPORTED_MODULE_1__[\"render\"])(response.city, response.temp, response.weather, response.humidity, response.wind);\n    });\n}\n\n\ngetLocation.onclick = () => {\n  if (navigator.geolocation) {\n    navigator.geolocation.getCurrentPosition(position => {\n      const lat = position.coords.latitude.toFixed(3);\n      const lon = position.coords.longitude.toFixed(3);\n      Object(_api__WEBPACK_IMPORTED_MODULE_0__[\"getLocationData\"])(lat, lon)\n        .then(response => {\n          Object(_dom__WEBPACK_IMPORTED_MODULE_1__[\"render\"])(response.city, response.temp, response.weather, response.humidity, response.wind);\n        });\n    });\n  } else {\n    Object(_dom__WEBPACK_IMPORTED_MODULE_1__[\"error\"])('Geolocation is not supported by this browser. Please try searching for your location.');\n  }\n}\n\n//# sourceURL=webpack:///./src/events.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _api__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./api */ \"./src/api.js\");\n/* harmony import */ var _dom__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./dom */ \"./src/dom.js\");\n\n\n\nconst searchBtn = document.querySelector('#search');\nconst getLocation = document.querySelector('#get-location');\n\nsearchBtn.onclick = () => {\n  if (Object(_dom__WEBPACK_IMPORTED_MODULE_1__[\"checkForm\"])()) {\n    const location = document.querySelector('#search-input').value;\n    Object(_api__WEBPACK_IMPORTED_MODULE_0__[\"getSearchData\"])(location, 'metric')\n      .then(response => {\n        Object(_dom__WEBPACK_IMPORTED_MODULE_1__[\"render\"])(response.city, response.temp, response.weather, response.humidity, response.wind, response.iconId);\n      });\n  } else {\n    Object(_dom__WEBPACK_IMPORTED_MODULE_1__[\"error\"])('Please fill out the search field!');\n  }\n}\n\n\ngetLocation.onclick = () => {\n  if (navigator.geolocation) {\n    navigator.geolocation.getCurrentPosition(position => {\n      const lat = position.coords.latitude.toFixed(3);\n      const lon = position.coords.longitude.toFixed(3);\n      Object(_api__WEBPACK_IMPORTED_MODULE_0__[\"getLocationData\"])(lat, lon)\n        .then(response => {\n          Object(_dom__WEBPACK_IMPORTED_MODULE_1__[\"render\"])(response.city, response.temp, response.weather, response.humidity, response.wind, response.iconId);\n        });\n    });\n  } else {\n    Object(_dom__WEBPACK_IMPORTED_MODULE_1__[\"error\"])('Geolocation is not supported by this browser. Please try searching for your location.');\n  }\n}\n\n//# sourceURL=webpack:///./src/events.js?");
 
 /***/ }),
 
@@ -172,11 +172,119 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _api
 /*!************************!*\
   !*** ./src/helpers.js ***!
   \************************/
-/*! exports provided: clearForm */
+/*! exports provided: clearForm, getBackgroundImg */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"clearForm\", function() { return clearForm; });\nconst clearForm = () => {\n  document.querySelector('#search-input').value = '';\n}\n\n\n\n//# sourceURL=webpack:///./src/helpers.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"clearForm\", function() { return clearForm; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"getBackgroundImg\", function() { return getBackgroundImg; });\n/* harmony import */ var _img_clear_jpg__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./img/clear.jpg */ \"./src/img/clear.jpg\");\n/* harmony import */ var _img_clear_night_jpg__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./img/clear-night.jpg */ \"./src/img/clear-night.jpg\");\n/* harmony import */ var _img_cloudy_jpg__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./img/cloudy.jpg */ \"./src/img/cloudy.jpg\");\n/* harmony import */ var _img_broken_clouds_jpg__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./img/broken-clouds.jpg */ \"./src/img/broken-clouds.jpg\");\n/* harmony import */ var _img_few_clouds_jpg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./img/few-clouds.jpg */ \"./src/img/few-clouds.jpg\");\n/* harmony import */ var _img_mist_jpg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./img/mist.jpg */ \"./src/img/mist.jpg\");\n/* harmony import */ var _img_rain_jpg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./img/rain.jpg */ \"./src/img/rain.jpg\");\n/* harmony import */ var _img_snow_jpg__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./img/snow.jpg */ \"./src/img/snow.jpg\");\n/* harmony import */ var _img_thunderstorm_jpg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./img/thunderstorm.jpg */ \"./src/img/thunderstorm.jpg\");\n\n\n\n\n\n\n\n\n\n\nconst clearForm = () => {\n  document.querySelector('#search-input').value = '';\n}\n\nconst getBackgroundImg = (id) => {\n  const body = document.querySelector('body');\n  console.log(id)\n  switch (id) {\n    case '01d':\n      body.style.backgroundImage = `url('${_img_clear_jpg__WEBPACK_IMPORTED_MODULE_0__[\"default\"]}')`;\n      break;\n    case '01n':\n      body.style.backgroundImage = `url('${_img_clear_night_jpg__WEBPACK_IMPORTED_MODULE_1__[\"default\"]}')`;\n      break;\n    case '02d':\n      body.style.backgroundImage = `url('${_img_few_clouds_jpg__WEBPACK_IMPORTED_MODULE_4__[\"default\"]}')`;\n      break;\n    case '02n':\n    case '03n':\n    case '04n':\n    case '04d':\n      body.style.backgroundImage = `url('${_img_broken_clouds_jpg__WEBPACK_IMPORTED_MODULE_3__[\"default\"]}')`;\n      break;\n    case '03d':\n      body.style.backgroundImage = `url('${_img_cloudy_jpg__WEBPACK_IMPORTED_MODULE_2__[\"default\"]}')`;\n      break;\n    case '09d':\n    case '09n':\n    case '10d':\n    case '10n':\n      body.style.backgroundImage = `url('${_img_rain_jpg__WEBPACK_IMPORTED_MODULE_6__[\"default\"]}')`;\n      break;\n    case '11d':\n    case '11n':\n      body.style.backgroundImage = `url('${_img_thunderstorm_jpg__WEBPACK_IMPORTED_MODULE_8__[\"default\"]}')`;\n      break;\n    case '13d':\n    case '13n':\n      body.style.backgroundImage = `url('${_img_snow_jpg__WEBPACK_IMPORTED_MODULE_7__[\"default\"]}')`;\n      break;\n    case '50d':\n    case '50n':\n      body.style.backgroundImage = `url('${_img_mist_jpg__WEBPACK_IMPORTED_MODULE_5__[\"default\"]}')`;\n      break;\n\n    default:\n      body.style.backgroundImage = `url('${_img_clear_jpg__WEBPACK_IMPORTED_MODULE_0__[\"default\"]}')`;\n      break;\n  }\n}\n\n\n\n//# sourceURL=webpack:///./src/helpers.js?");
+
+/***/ }),
+
+/***/ "./src/img/broken-clouds.jpg":
+/*!***********************************!*\
+  !*** ./src/img/broken-clouds.jpg ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (__webpack_require__.p + \"3ee2f6140e33b4559cb756416938ccc5.jpg\");\n\n//# sourceURL=webpack:///./src/img/broken-clouds.jpg?");
+
+/***/ }),
+
+/***/ "./src/img/clear-night.jpg":
+/*!*********************************!*\
+  !*** ./src/img/clear-night.jpg ***!
+  \*********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (__webpack_require__.p + \"d3d5cfbe857b95647fd2ae4ac07eea96.jpg\");\n\n//# sourceURL=webpack:///./src/img/clear-night.jpg?");
+
+/***/ }),
+
+/***/ "./src/img/clear.jpg":
+/*!***************************!*\
+  !*** ./src/img/clear.jpg ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (__webpack_require__.p + \"873ebd360d855351f918f78228751f88.jpg\");\n\n//# sourceURL=webpack:///./src/img/clear.jpg?");
+
+/***/ }),
+
+/***/ "./src/img/cloudy.jpg":
+/*!****************************!*\
+  !*** ./src/img/cloudy.jpg ***!
+  \****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (__webpack_require__.p + \"5305583984277d013635f3d29248acb7.jpg\");\n\n//# sourceURL=webpack:///./src/img/cloudy.jpg?");
+
+/***/ }),
+
+/***/ "./src/img/few-clouds.jpg":
+/*!********************************!*\
+  !*** ./src/img/few-clouds.jpg ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (__webpack_require__.p + \"b9b896600539557f561a0df2453121ef.jpg\");\n\n//# sourceURL=webpack:///./src/img/few-clouds.jpg?");
+
+/***/ }),
+
+/***/ "./src/img/mist.jpg":
+/*!**************************!*\
+  !*** ./src/img/mist.jpg ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (__webpack_require__.p + \"5789344ff355fdfe31c4d4363aa2badf.jpg\");\n\n//# sourceURL=webpack:///./src/img/mist.jpg?");
+
+/***/ }),
+
+/***/ "./src/img/rain.jpg":
+/*!**************************!*\
+  !*** ./src/img/rain.jpg ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (__webpack_require__.p + \"911c96a599e1bc365272cb990f019165.jpg\");\n\n//# sourceURL=webpack:///./src/img/rain.jpg?");
+
+/***/ }),
+
+/***/ "./src/img/snow.jpg":
+/*!**************************!*\
+  !*** ./src/img/snow.jpg ***!
+  \**************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (__webpack_require__.p + \"256cc4a703d75f562b90b776b1625c96.jpg\");\n\n//# sourceURL=webpack:///./src/img/snow.jpg?");
+
+/***/ }),
+
+/***/ "./src/img/thunderstorm.jpg":
+/*!**********************************!*\
+  !*** ./src/img/thunderstorm.jpg ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony default export */ __webpack_exports__[\"default\"] = (__webpack_require__.p + \"edcb48720245f9515320eccb29be9721.jpg\");\n\n//# sourceURL=webpack:///./src/img/thunderstorm.jpg?");
 
 /***/ }),
 

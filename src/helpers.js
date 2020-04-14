@@ -10,7 +10,7 @@ import Thunderstorm from './img/thunderstorm.jpg';
 
 const clearForm = () => {
   document.querySelector('#search-input').value = '';
-}
+};
 
 const getBackgroundImg = (id) => {
   const body = document.querySelector('body');
@@ -56,6 +56,6 @@ const getBackgroundImg = (id) => {
       body.style.backgroundImage = `url('${Clear}')`;
       break;
   }
-}
+};
 
-export { clearForm, getBackgroundImg }
+export { clearForm, getBackgroundImg };

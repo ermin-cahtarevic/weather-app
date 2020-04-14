@@ -1,5 +1,6 @@
 import { getSearchData, getLocationData } from './api';
-import { render, error, checkForm } from './dom';
+import { render, checkForm } from './dom';
+import error from './error';
 
 let location = '';
 let unit = 'metric';
@@ -12,7 +13,19 @@ searchBtn.onclick = () => {
     location = document.querySelector('#search-input').value;
     getSearchData(location, unit)
       .then(response => {
-        render(response.city, response.temp, response.weather, response.humidity, response.wind, response.iconId, unit);
+        if (Object.keys(response).length === 0 && response.constructor === Object) {
+          return false;
+        }
+        render(
+          response.city,
+          response.temp,
+          response.weather,
+          response.humidity,
+          response.wind,
+          response.iconId,
+          unit,
+        );
+        return false;
       });
   } else {
     error('Please fill out the search field!');
@@ -27,7 +40,19 @@ getLocation.onclick = () => {
       getLocationData(lat, lon, unit)
         .then(response => {
           location = response.city;
-          render(response.city, response.temp, response.weather, response.humidity, response.wind, response.iconId, unit);
+          if (Object.keys(response).length === 0 && response.constructor === Object) {
+            return false;
+          }
+          render(
+            response.city,
+            response.temp,
+            response.weather,
+            response.humidity,
+            response.wind,
+            response.iconId,
+            unit,
+          );
+          return false;
         });
     });
   } else {
@@ -48,6 +73,5 @@ unitToggle.onclick = () => {
         render(response.city, response.temp, response.weather, response.humidity, response.wind, response.iconId, 'metric');
         unit = 'metric';
       });
-    
   }
 };

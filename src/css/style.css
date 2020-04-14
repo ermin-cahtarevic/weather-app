@@ -1,6 +1,6 @@
 body {
   background-color: rgb(19, 37, 71);
-  background-image: url('https://images.unsplash.com/photo-1526451752866-695bdb5512ca?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1051&q=80');
+  background-image: url('../img/clear.jpg');
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center center;
@@ -38,7 +38,6 @@ body {
   width: 900px;
   max-width: 900px;
   height: 700px;
-  max-height: 90vh;
   background-color: rgba(19, 37, 71, 0.7);
 }
 
@@ -184,4 +183,54 @@ body {
 
 .d-none {
   display: none;
+}
+
+@media only screen and (max-width: 900px) {
+  body {
+    background-size: cover;
+  }
+
+  #error {
+    width: 100%;
+  }
+
+  #main {
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    height: inherit;
+  }
+
+  #get-location {
+    margin-top: 105px;
+  }
+
+  .search-wrap {
+    height: auto;
+    padding-bottom: 40px;
+  }
+
+  .search-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+  }
+
+  #search {
+    margin-top: 10px;
+  }
+
+  .p-text {
+    text-align: center;
+  }
+
+  .misc-wrap {
+    flex-direction: column;
+    margin-top: 40px;
+    width: 100%;
+  }
+
+  .wind-wrap {
+    margin-top: 40px;
+  }
 }

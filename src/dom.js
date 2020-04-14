@@ -11,6 +11,7 @@ const unitToggle = document.querySelector('.unit-toggle');
 const loadWrap = document.createElement('div');
 const loader = document.createElement('div');
 const p = document.createElement('p');
+p.classList.add('p-text');
 
 p.innerHTML = "Please click the 'Get my location' button or search for a location.";
 loadWrap.classList.add('load-wrap');

@@ -2,7 +2,7 @@ import error from './error';
 
 const apiId = 'ef6615ba447292811b06a9a82b11ecd9';
 
-const getSearchData = async (location, unit = 'metric') => {
+const getSearchData = async (location, unit) => {
   let returnValue = {};
   try {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?q=${location}&units=${unit}&APPID=${apiId}`,
@@ -22,7 +22,7 @@ const getSearchData = async (location, unit = 'metric') => {
   return returnValue;
 };
 
-const getLocationData = async (lat, lon, unit = 'metric') => {
+const getLocationData = async (lat, lon, unit) => {
   let returnValue = {};
   try {
     const response = await fetch(`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=${unit}&APPID=${apiId}`,

@@ -7,6 +7,7 @@ const weatherDisplay = document.querySelector('.weather-type');
 const tempDisplay = document.querySelector('.temperature');
 const humidityDisplay = document.querySelector('.humidity');
 const windDisplay = document.querySelector('.wind');
+const unitToggle = document.querySelector('.unit-toggle');
 const errorDisplay = document.querySelector('#error');
 
 const loadWrap = document.createElement('div');
@@ -20,7 +21,7 @@ loadWrap.appendChild(p);
 loadWrap.appendChild(loader)
 main.appendChild(loadWrap);
 
-const render = (city, temp, weather, humidity, wind, iconId) => {
+const render = (city, temp, weather, humidity, wind, iconId, unit) => {
   loadWrap.classList.add('d-none');
   document.querySelector('.data-wrap').classList.remove('d-none');
   getBackgroundImg(iconId);
@@ -28,8 +29,14 @@ const render = (city, temp, weather, humidity, wind, iconId) => {
   weatherDisplay.innerHTML = weather;
   tempDisplay.innerHTML = temp;
   humidityDisplay.innerHTML = humidity + '%';
-  windDisplay.innerHTML = wind + ' km/h';
-
+  if (unit === 'metric') {
+    unitToggle.innerHTML = '°C';
+    windDisplay.innerHTML = (wind * 3.6).toFixed(2) + ' km/h';
+  } else if (unit === 'imperial') {
+    unitToggle.innerHTML = '°F';
+    windDisplay.innerHTML = wind.toFixed(2) + ' m/h';
+  }
+  
   clearForm();
 }
 

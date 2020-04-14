@@ -14,7 +14,6 @@ const clearForm = () => {
 
 const getBackgroundImg = (id) => {
   const body = document.querySelector('body');
-  console.log(id)
   switch (id) {
     case '01d':
       body.style.backgroundImage = `url('${Clear}')`;

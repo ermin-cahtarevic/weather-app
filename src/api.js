@@ -1,3 +1,5 @@
+import { error } from './dom';
+
 const apiId = 'ef6615ba447292811b06a9a82b11ecd9';
 
 const getSearchData = async (location, unit = 'metric') => {
@@ -13,7 +15,7 @@ const getSearchData = async (location, unit = 'metric') => {
       wind: (weatherData.list[0].wind.speed * 3.6).toFixed(2)
     }
   } catch (err) {
-    
+    error('City not found! Please check your spelling.');
   }
 }
 
@@ -30,7 +32,7 @@ const getLocationData = async (lat, lon, unit = 'metric') => {
       wind: (weatherData.list[0].wind.speed * 3.6).toFixed(2)
     }
   } catch (err) {
-    
+    error('Please check your input!')
   }
 }
 

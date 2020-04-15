@@ -1,0 +1,236 @@
+body {
+  background-color: rgb(19, 37, 71);
+  background-image: url('../img/clear.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* error */
+
+#error {
+  position: absolute;
+  top: -55px;
+  width: 900px;
+  height: 50px;
+  background-color: rgba(158, 17, 17, 0.9);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 10px;
+}
+
+.error-show {
+  transform: translateY(60px);
+}
+
+#main {
+  border: 4px solid white;
+  border-radius: 10px;
+  width: 900px;
+  max-width: 900px;
+  height: 700px;
+  background-color: rgba(19, 37, 71, 0.7);
+}
+
+.search-wrap {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.search-form {
+  margin-top: 35px;
+}
+
+.search-form input {
+  font-size: 16px;
+  margin: 0;
+  padding: 7px 15px;
+  background-color: rgb(19, 37, 71);
+  color: white;
+  outline: none;
+  border: 2px solid white;
+  border-radius: 20px;
+}
+
+.search-form input:focus {
+  background-color: white;
+  color: rgb(10, 18, 34);
+}
+
+.btn {
+  background-color: rgb(19, 37, 71);
+  color: white;
+  outline: none;
+  border: 2px solid white;
+  border-radius: 20px;
+  font-size: 16px;
+  padding: 7px 15px;
+  margin: 0;
+  transition: background-color 0.3s ease-out,
+              color 0.3s ease-out;
+}
+
+.btn:hover {
+  background-color: white;
+  color: rgb(19, 37, 71);
+  cursor: pointer;
+}
+
+.data-wrap {
+  color: white;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 50px;
+}
+
+.location {
+  font-size: 24px;
+  margin-bottom: 60px;
+}
+
+.temperature-wrap {
+  width: 100%;
+  text-align: center;
+}
+
+.temperature {
+  font-weight: bold;
+}
+
+.temperature-wrap .temperature,
+.temperature-wrap .unit-toggle {
+  font-size: 55px;
+}
+
+.temperature-wrap .unit-toggle {
+  text-decoration: none;
+  color: white;
+}
+
+.weather-type {
+  margin-top: 15px;
+  font-size: 22px;
+}
+
+.misc-wrap {
+  display: flex;
+  justify-content: space-between;
+  width: 500px;
+  margin-top: 80px;
+}
+
+.humidity-wrap,
+.wind-wrap {
+  text-align: center;
+}
+
+.humidity-wrap i,
+.wind-wrap i {
+  margin-right: 5px;
+}
+
+.humidity-wrap i,
+.wind-wrap i,
+.humidity-wrap .humidity,
+.wind-wrap .wind {
+  font-size: 28px;
+}
+
+.load-wrap {
+  width: 100%;
+  height: 300px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.load-wrap p {
+  font-size: 18px;
+  margin-bottom: 50px;
+}
+
+.loader {
+  border: 5px solid #f3f3f3; /* Light grey */
+  border-top: 5px solid rgb(19, 37, 71); /* Blue */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.d-none {
+  display: none;
+}
+
+@media only screen and (max-width: 900px) {
+  body {
+    background-size: cover;
+  }
+
+  #error {
+    width: 100%;
+  }
+
+  #main {
+    border: none;
+    border-radius: 0;
+    width: 100%;
+    height: inherit;
+  }
+
+  #get-location {
+    margin-top: 105px;
+  }
+
+  .search-wrap {
+    height: auto;
+    padding-bottom: 40px;
+  }
+
+  .search-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
+  }
+
+  #search {
+    margin-top: 10px;
+  }
+
+  .p-text {
+    text-align: center;
+  }
+
+  .misc-wrap {
+    flex-direction: column;
+    margin-top: 40px;
+    width: 100%;
+  }
+
+  .wind-wrap {
+    margin-top: 40px;
+  }
+}

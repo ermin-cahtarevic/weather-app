@@ -3,10 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Weather App</title>
 </head>
 <body>
-  
+  <div id="error"></div>
+  <div id="main">
+    <div class="search-wrap">
+      <button class="btn" id="get-location">Get my location</button>
+      <div class="search-form">
+        <input type="text" placeholder="City" id="search-input">
+        <button class="btn" id="search">Search</button>
+      </div>
+    </div>
+    <div class="data-wrap d-none">
+      <div class="location"></div>
+      <div class="temperature-wrap">
+        <span class="temperature"></span>
+        <a href="#" class="unit-toggle">°C</a>
+        <div class="weather-type"></div>
+      </div>
+      <div class="misc-wrap">
+        <div class="humidity-wrap">
+          <i class="fa fa-tint"></i>
+          <span class="humidity"></span> <br>
+          <span>Humidity</span>
+        </div>
+        <div class="wind-wrap">
+          <i class="fa fa-angle-double-right"></i>
+          <span class="wind"></span> <br>
+          <span>Wind</span>
+        </div>
+      </div>  
+    </div>
+  </div>
   <script src="main.js"></script>
 </body>
 </html>
